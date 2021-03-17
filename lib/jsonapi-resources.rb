@@ -4,7 +4,13 @@ require 'jsonapi/resource'
 require 'jsonapi/cached_resource_fragment'
 require 'jsonapi/response_document'
 require 'jsonapi/acts_as_resource_controller'
-require 'jsonapi/resource_controller'
+if Rails::VERSION::MAJOR >= 6
+  ActiveSupport.on_load(:action_controller_base) do
+    require 'jsonapi/resource_controller'
+  end
+else
+  require 'jsonapi/resource_controller'
+end
 require 'jsonapi/resource_controller_metal'
 require 'jsonapi/resources/version'
 require 'jsonapi/configuration'
